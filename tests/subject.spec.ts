@@ -50,3 +50,14 @@ test('O usuário não pode cadastrar uma matéria sem preencher o campo de profe
     await expect(page.getByText('Informe o nome do professor.')).toBeVisible();
 });
 
+test('O usuário não pode cadastrar uma matéria com um nome de matéria que já existe', async ({ page }) => {
+
+    const loginPage = new LoginPage(page);
+    await loginPage.login(email, password);
+    await expect(page).toHaveURL(/.dashboard/);
+    await expect(page.getByText('Olá, Pessôa', { exact: false })).toBeVisible();
+
+    const subjectsPage = new SubjectsPage(page);
+    await subjectsPage.cadastrarSubject('Química', 'Prof. Silva', '1');
+    await expect(page.getByText('Você já possui uma matéria com este nome.')).toBeVisible();
+});
