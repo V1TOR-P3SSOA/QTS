@@ -16,11 +16,11 @@ test('Usuário pode fazer login', async ({ page }) => {
 test('Usuário não pode fazer login com credenciais inválidas', async ({ page }) => {
     const loginpage = new LoginPage(page);
     await loginpage.login(email, 'wrongpassword');
-    await expect(page.getByText('These credentials do not match our records.')).toBeVisible();
+    await expect(page.getByText('Credenciais inválidas')).toBeVisible();
 });
 
 test('Usuário não pode fazer login com campos vazios', async ({ page }) => {
     const loginpage = new LoginPage(page);
     await loginpage.login('', '');
-    await expect(page).toHaveURL(/.login/);
+    await expect(page.getByText('O email é obrigatório. (and 1 more error)')).toBeVisible();
 });
