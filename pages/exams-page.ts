@@ -16,6 +16,11 @@ constructor(page: Page) {
 
 async cadastrarExam(prova: string, materia: string, tempo: string) {
     await this.page.goto('https://studylab.free.laravel.cloud/exams');
+    await this.page.waitForLoadState('networkidle');
+    
+    
+    await this.page.click('button[id="prevWeek"]');
+    
     await this.page.locator('button:has-text("Adicionar")').first().click();
     await this.page.locator('select[id="modalType"]').selectOption(prova);
     await this.page.locator('select[id="modalDesc"]').selectOption('__outro__');
@@ -26,6 +31,8 @@ async cadastrarExam(prova: string, materia: string, tempo: string) {
 
 async excluirExam(materia: string) {
     await this.page.goto('https://studylab.free.laravel.cloud/exams');
+        await this.page.waitForLoadState('networkidle');
+    await this.page.click('button[id="prevWeek"]');
     const card = this.page.locator('div[onclick*="openEdit"]').filter({ hasText: materia }).first();
     await card.click();
     await this.page.click('button[id="modalDelete"]');
