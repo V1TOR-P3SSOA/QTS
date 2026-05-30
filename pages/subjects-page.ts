@@ -19,7 +19,8 @@ constructor(page: Page) {
         await this.page.click('button:has-text("Adicionar matéria")');
         await this.page.locator('select[id="modalSubjectName"]').selectOption(materia);
         await this.page.fill('input[id="modalSubjectTeacher"]', professor);
-        await this.page.locator('select[id="modalSubjectSemester"]').selectOption('1');
+        await this.page.locator('select[id="modalSubjectSemester"]').selectOption('Outro...');
+        await this.page.fill('input[id="modalSubjectSemesterCustom"]', semestre);
         await this.page.click('button[type="submit"]');
     }
 
