@@ -61,3 +61,27 @@ test('O usuário não pode cadastrar uma matéria com um nome de matéria que j�
     await subjectsPage.cadastrarSubject('Química', 'Prof. Silva', '1');
     await expect(page.getByText('Você já possui uma matéria com este nome.')).toBeVisible();
 });
+
+test('O usuário não pode resgistrar o nome do professor com caracteres inválidos', async ({ page }) => {
+
+    const loginPage = new LoginPage(page);
+    await loginPage.login(email, password);
+    await expect(page).toHaveURL(/.dashboard/);
+    await expect(page.getByText('Olá, Pessôa', { exact: false })).toBeVisible();
+
+    const subjectsPage = new SubjectsPage(page);
+    await subjectsPage.cadastrarSubject('Física', '12345678', '1');
+    await expect(page.getByText('O campo professor não pode conter números.')).toBeVisible();
+});
+
+test('O usuário não pode registrar uma matéria com um semestre inválido', async ({ page }) => {
+
+    const loginPage = new LoginPage(page);
+    await loginPage.login(email, password);
+    await expect(page).toHaveURL(/.dashboard/);
+    await expect(page.getByText('Olá, Pessôa', { exact: false })).toBeVisible();
+
+    const subjectsPage = new SubjectsPage(page);
+    await subjectsPage.cadastrarSubject('Biologia', 'Prof. Silva', '99');
+    await expect(page.getByText('O semestre não pode ser maior que 20.')).toBeVisible();
+});
