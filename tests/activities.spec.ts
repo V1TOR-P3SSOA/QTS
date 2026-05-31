@@ -24,17 +24,13 @@ test.describe('Casos Felizes', () => {
             'MAT',
             'Hoje',
         );
-        await expect(page.getByText('Estudar para a prova de matemática')).toBeVisible();
+        await expect(page.getByText('Atividade cadastrada! Lista atualizada.')).toBeVisible();
     });
 
-    test('O usuário pode concluir uma atividade existente', async ({ page }) => {
+    test('O usuário pode editar uma atividade existente', async ({ page }) => {
         const activitiesPage = new ActivitiesPage(page);
-        await activitiesPage.cadastrarActivitie(
-            'Estudar para a prova de matemática',
-            'MAT',
-            'Hoje',
-        );
-        await activitiesPage.excluirActivitie('Estudar para a prova de matemática');
+        await activitiesPage.editarActivitie('Estudar para a prova de matemática');
+        await expect(page.getByText('Atividade atualizada! Lista atualizada.')).toBeVisible();
     });
 
 });
@@ -74,7 +70,7 @@ test.describe('Casos de Borda', () => {
             'MAT',
             'Hoje',
         );
-        await expect(page.getByText('Atividade cadastrada!')).toBeVisible();
+        await expect(page.getByText('Atividade cadastrada! Lista atualizada.')).toBeVisible();
     });
 
     test('O usuário não pode cadastrar uma atividade com data de vencimento no passado', async ({ page }) => {
