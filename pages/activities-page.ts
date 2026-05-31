@@ -25,6 +25,17 @@ export class ActivitiesPage {
         await this.page.click('button[type="submit"]');
     }
 
+    async cadastrarActivitieComData(description: string, subject: string, date: string) {
+        await this.page.goto('https://studylab.free.laravel.cloud/activities');
+        await this.page.click('button:has-text("Nova Atividade")');
+        await this.page.fill('textarea[id="modalDescription"]', description);
+        await this.page.locator('select[id="modalSubjectId"]').selectOption('Digitar manualmente...');
+        await this.page.fill('input[id="modalSubjectManual"]', subject);
+        await this.page.locator('select[id="modalDueDateQuick"]').selectOption('custom');
+        await this.page.fill('input[id="modalDueDate"]', date);
+        await this.page.click('button[type="submit"]');
+    }
+
     async excluirActivitie(title: string) {
         await this.page.goto('https://studylab.free.laravel.cloud/activities');
         await expect(this.page.getByText(title)).toBeVisible();
