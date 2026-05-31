@@ -36,11 +36,12 @@ export class ActivitiesPage {
         await this.page.click('button[type="submit"]');
     }
 
-    async excluirActivitie(title: string) {
+    async editarActivitie(title: string) {
         await this.page.goto('https://studylab.free.laravel.cloud/activities');
-        await expect(this.page.getByText(title)).toBeVisible();
-        await this.page.click('button:has-text("Excluir")');
-        await this.page.click('button:has-text("Sim, excluir")');
-        await expect(this.page.getByText('Atividade excluída!')).toBeVisible();
+        const row = this.page.locator('tbody#activitiesTable tr').filter({ hasText: title });
+        await expect(row).toBeVisible();
+        await row.locator('button:has-text("Editar")').click();
+        await this.page.fill('textarea[id="modalDescription"]', `${title} - Editada`);
+        await this.page.click('button[type="submit"]');
     }
 }
