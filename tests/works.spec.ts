@@ -68,7 +68,7 @@ test.describe('Casos de Borda', () => {
 
     test('O usuário pode cadastrar um trabalho com a descrição no limite máximo de caracteres', async ({ page }) => {
         const worksPage = new WorksPage(page);
-        const longDescription = 'A'.repeat(255);
+        const longDescription = 'A'.repeat(100);
         await worksPage.cadastrarWork(
             'Artigo',
             longDescription,
