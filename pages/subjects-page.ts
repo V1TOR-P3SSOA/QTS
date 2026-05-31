@@ -20,7 +20,7 @@ constructor(page: Page) {
         await this.page.locator('select[id="modalSubjectName"]').selectOption(materia);
         await this.page.fill('input[id="modalSubjectTeacher"]', professor);
         await this.page.locator('select[id="modalSubjectSemester"]').selectOption('Outro...');
-        await this.page.fill('input[id="modalSubjectSemesterCustom"]', semestre);
+        await this.page.locator('input[id="modalSubjectSemesterCustom"]').fill(semestre);
         await this.page.click('button[type="submit"]');
     }
 
