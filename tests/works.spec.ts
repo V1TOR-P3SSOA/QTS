@@ -84,7 +84,7 @@ test.describe('Casos de Borda', () => {
             'Trabalho de Matemática',
             '2020-01-01',
         );
-        await expect(page.getByText('A data não pode ser anterior a hoje.', { exact: false })).toBeVisible();
+        await expect(page.getByText('A data não pode estar no passado.', { exact: false })).toBeVisible();
     });
 
 });
