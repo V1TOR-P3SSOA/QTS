@@ -26,7 +26,7 @@ constructor(page: Page) {
         async excluirWork(title: string) {
         await this.page.goto('https://studylab.free.laravel.cloud/works');
         await expect(this.page.getByText(title)).toBeVisible();
-        await this.page.click('button:has-text("Excluir")');
+        await this.page.locator('.delete-btn').first().click();
         await this.page.click('button:has-text("Sim, excluir")');
         await expect(this.page.getByText('Trabalho excluído!')).toBeVisible();
     }

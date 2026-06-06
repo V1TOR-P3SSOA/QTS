@@ -5,6 +5,10 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
+const ontem = new Date();
+ontem.setDate(ontem.getDate() - 1);
+const dataOntem = ontem.toISOString().slice(0, 10);
+
 const email = process.env.USER_EMAIL!;
 const password = process.env.USER_PASSWORD!;
 
@@ -29,12 +33,13 @@ test.describe('Casos Felizes', () => {
 
     test('O usuário pode deletar um trabalho existente', async ({ page }) => {
         const worksPage = new WorksPage(page);
+        const titulo = `Trabalho de Matemática ${Date.now()}`;
         await worksPage.cadastrarWork(
             'Artigo',
-            'Trabalho de Matemática',
+            titulo,
             '2026-12-31',
         );
-        await worksPage.excluirWork('Trabalho de Matemática');
+        await worksPage.excluirWork(titulo);
         await expect(page.getByText('Trabalho excluído!', { exact: false })).toBeVisible();
     });
 
@@ -82,7 +87,7 @@ test.describe('Casos de Borda', () => {
         await worksPage.cadastrarWork(
             'Artigo',
             'Trabalho de Matemática',
-            '2020-01-01',
+            dataOntem,
         );
         await expect(page.getByText('A data não pode estar no passado.', { exact: false })).toBeVisible();
     });
