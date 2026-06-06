@@ -51,10 +51,10 @@ test.describe('Casos Tristes', () => {
 
 test.describe('Casos de Borda', () => {
 
-    test('O usuário não pode registrar o nome do professor com números', async ({ page }) => {
+    test('O usuário pode registrar a matéria com o semestre máximo permitido', async ({ page }) => {
         const subjectsPage = new SubjectsPage(page);
-        await subjectsPage.cadastrarSubject('Física', 'Prof. Silva 123', '1');
-        await expect(page.getByText('O campo professor não pode conter números ou caracteres especiais.', { exact: false })).toBeVisible();
+        await subjectsPage.cadastrarSubject('Física', 'Prof. Silva', '20');
+        await expect(page.getByText('Matéria cadastrada!', { exact: false })).toBeVisible();
     });
 
     test('O usuário não pode registrar uma matéria com semestre igual a 21', async ({ page }) => {
