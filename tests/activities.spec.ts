@@ -5,6 +5,10 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
+const ontem = new Date();
+ontem.setDate(ontem.getDate() - 1);
+const dataOntem = ontem.toISOString().slice(0, 10);
+
 const email = process.env.USER_EMAIL!;
 const password = process.env.USER_PASSWORD!;
 
@@ -78,7 +82,7 @@ test.describe('Casos de Borda', () => {
     await activitiesPage.cadastrarActivitieComData(
         'Estudar para a prova de matemática',
         'MAT',
-        '1111-11-11',
+        dataOntem,
     );
     await expect(page.getByText('A data não pode estar no passado.', { exact: false })).toBeVisible();
     });
