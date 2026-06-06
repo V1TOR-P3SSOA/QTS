@@ -37,14 +37,14 @@ test.describe('Casos Tristes', () => {
     test('O usuário não pode cadastrar uma prova sem preencher o campo de matéria', async ({ page }) => {
         const examsPage = new ExamsPage(page);
         await examsPage.cadastrarExam('Prova', '');
-        await expect(page.getByText('Informe uma matéria sem caracteres especiais (máx 40).')).toBeVisible();
+        await expect(page.getByText('Informe uma matéria (máx 40 char).')).toBeVisible();
     });
 
     test('O usuário não pode editar uma prova sem preencher o campo de matéria', async ({ page }) => {
         const examsPage = new ExamsPage(page);
         await examsPage.cadastrarExam('Prova', 'Matemática');
         await examsPage.editarExam('Matemática', '');
-        await expect(page.getByText('Informe uma matéria sem caracteres especiais (máx 40).')).toBeVisible();
+        await expect(page.getByText('Informe uma matéria (máx 40 char).')).toBeVisible();
     });
 
 
