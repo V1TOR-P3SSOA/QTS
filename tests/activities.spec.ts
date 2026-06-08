@@ -7,7 +7,11 @@ dotenv.config();
 
 const ontem = new Date();
 ontem.setDate(ontem.getDate() - 1);
-const dataOntem = ontem.toISOString().slice(0, 10);
+const dataOntem = [
+    ontem.getFullYear(),
+    String(ontem.getMonth() + 1).padStart(2, '0'),
+    String(ontem.getDate()).padStart(2, '0'),
+].join('-');
 
 const email = process.env.USER_EMAIL!;
 const password = process.env.USER_PASSWORD!;
